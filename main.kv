@@ -1,0 +1,44 @@
+#:include menu.kv
+#:include intro.kv
+#:include options.kv
+#:include prepare.kv
+#:include game.kv
+
+<Manager>:
+    id: screen_manager
+
+    intro: intro
+    menu: menu
+    options: options
+    prepare_game_no_of_players: prepare_game_no_of_players
+    prepare_game_players_name: prepare_game_players_name
+
+    Intro:
+        id: intro
+        name: "intro"
+        manager: screen_manager
+
+    Menu:
+        id: menu
+        name: "menu"
+        manager: screen_manager
+
+    Options:
+        id: options
+        name: "options"
+        manager: screen_manager
+
+    PrepareGameNoOfPlayers:
+        id: prepare_game_no_of_players
+        name: "prepare_game_no_of_players"
+        manager: screen_manager
+
+    PrepareGamePlayersName:
+        id: prepare_game_players_name
+        name: "prepare_game_players_name"
+        manager: screen_manager
+
+    Game:
+        id: game
+        name: "game"
+        manager: screen_manager

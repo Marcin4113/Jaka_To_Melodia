@@ -1,0 +1,38 @@
+<PrepareGameNoOfPlayers>:
+    BoxLayout:
+        orientation: "vertical"
+        cols: 3
+
+        Label:
+            text: "Podaj liczbę graczy"
+            font_size: 40
+        TextInput:
+            id: no_of_players
+            size_hint: 0.5, 1
+            pos_hint: {"center_x": 0.5}
+            multiline: False
+            on_text_validate: root.save_no_of_players(self)
+            text_validate_unfocus: False
+        Button:
+            text: "Dalej"
+            on_release: root.save_no_of_players(self)
+
+<PrepareGamePlayersName>:
+    BoxLayout:
+        orientation: "vertical"
+        cols: 3
+
+        Label:
+            text: "Podaj nazwę gracza numer " + str(root.current_player) + ":"
+            font_size: 40
+        TextInput:
+            id: player_name
+            size_hint: 0.5, 1
+            pos_hint: {"center_x": 0.5}
+            multiline: False
+            on_text_validate: root.save_name(self)
+            text_validate_unfocus: False
+        Button:
+            id: button_number_next
+            text: "Dalej"
+            on_release: root.save_name(self)

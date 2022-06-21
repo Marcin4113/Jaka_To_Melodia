@@ -1,0 +1,24 @@
+<Game>:
+    BoxLayout:
+        orientation: "vertical"
+        cols: 4
+
+        Label:
+            id: label
+            size_hint: 1, 0.5
+            text: "Gracz "
+            font_size: 50
+
+        Image:
+            source: "img/logo.jpg"
+            allow_stretch: True
+
+        ProgressBar:
+            id: progress_bar
+            max: 100
+            value: root.playback_time
+
+        Label:
+            size_hint: 1, 0.5
+            text: "Naciśnij spację aby rozpocząć odsłuchiwanie fragmentu!"
+            font_size: 40
