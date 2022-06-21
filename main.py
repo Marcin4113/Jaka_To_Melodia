@@ -1,16 +1,43 @@
-# This is a sample Python script.
+from kivy import Config
+from kivy.app import App
+from kivy.clock import Clock
+from kivy.properties import ObjectProperty
+from kivy.uix.screenmanager import ScreenManager, Screen, NoTransition
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+class Intro(Screen):
+    def __init__(self, **kwargs):
+        super(Intro, self).__init__(**kwargs)
+
+    # listener sprawdzający kiedy skończy się intro, który przechodzi potem do głównego menu
+    def on_position_change(self, screen, value):
+        if value > 20:
+            self.label.state = 'stop'
+            self.manager.current = 'menu'
+
+    def on_enter(self):
+        Clock.schedule_once(self.btnpress, 1)
+
+    def btnpress(self, *args):
+        self.label.bind(position=self.on_position_change)
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+class ScreenTwo(Screen):
+
+    def __init__(self, **kwargs):
+        super(ScreenTwo, self).__init__(**kwargs)
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+class Manager(ScreenManager):
+    intro = ObjectProperty(None)
+    screen_two = ObjectProperty(None)
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+
+class ScreensApp(App):
+    def build(self):
+        m = Manager(transition=NoTransition())
+        return m
+
+
+if __name__ == "__main__":
+    Config.set('graphics', 'fullscreen', 'auto')  # pełny ekran
+    ScreensApp().run()
