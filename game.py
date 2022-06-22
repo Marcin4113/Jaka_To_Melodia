@@ -11,12 +11,11 @@ import vlc
 from kivy.uix.textinput import TextInput
 from databse import Database
 from results import ResultsGame
+import settings
 
 song_genre_code = 3
 no_of_players = 1
 players_info = [['Maracin', 0]]
-
-volume = 100
 
 
 class Game(Screen):
@@ -39,6 +38,7 @@ class Game(Screen):
 
     # przy uruchomieniu okna
     def on_enter(self, *args):
+        print(settings.master_volume)
         # Window.fullscreen = 'auto'
         Window.bind(on_key_down=self.key_action)
         self.round_number = 1
@@ -83,6 +83,7 @@ class Game(Screen):
         if is_good_answer:
             player = vlc.MediaPlayer("audio//clap.mp3")
             player.play()  # odtworzenie klaskania
+            player.audio_set_volume(settings.master_volume)
 
             self.ids.box_game.remove_widget(self.answer_input)
             self.ids.box_game.remove_widget(self.answer_button)
@@ -175,6 +176,7 @@ class Game(Screen):
             self.playurl = self.best.url
             self.player = vlc.MediaPlayer(self.playurl)
             self.player.play()  # odtworzenie piosenki
+            self.player.audio_set_volume(settings.master_volume)
 
             for i in range(0, 10):
                 if self.player.is_playing():
@@ -217,9 +219,6 @@ class PrepareGameNoOfPlayers(Screen):
         self.db = Database("database.db")
         self.ids.spinner_genres.values = self.db.get_all_genres()
 
-        #wczytanie głośności dźwięków
-
-
     def save_no_of_players(self, widget):
         global no_of_players, song_genre_code
 
@@ -231,6 +230,7 @@ class PrepareGamePlayersName(Screen):
     current_player = NumericProperty(1)
 
     def on_enter(self, *args):
+        self.current_player = 1
         players_info.clear()
         self.check_counter()
 

@@ -4,6 +4,7 @@ from kivy.clock import Clock
 from kivy.core.window import Window
 from kivy.properties import ObjectProperty
 from kivy.uix.screenmanager import ScreenManager, Screen, NoTransition
+import settings
 from menu import Menu
 from options import Options
 from game import PrepareGameNoOfPlayers, Game
@@ -42,6 +43,7 @@ class MainApp(App):
 
 
 if __name__ == "__main__":
+    settings.init()
     #Window.fullscreen = 'auto'
     #Config.set('graphics', 'fullscreen', 'auto')  # pełny ekran
     MainApp().run()
