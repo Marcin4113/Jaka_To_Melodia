@@ -7,6 +7,7 @@ from kivy.uix.screenmanager import ScreenManager, Screen, NoTransition
 from menu import Menu
 from options import Options
 from game import PrepareGameNoOfPlayers, Game
+from results import Results
 
 
 class Intro(Screen):
@@ -18,9 +19,9 @@ class Intro(Screen):
 
     # listener sprawdzający kiedy skończy się intro, który przechodzi potem do głównego menu
     def on_position_change(self, screen, value):
-        if value > self.label.duration - 20:  # czas: 20s
+        if value > self.label.duration - 21:  # czas: 20s
             self.label.state = 'stop'
-            self.manager.current = 'game'
+            self.manager.current = 'menu'
 
     def listener(self, *args):
         self.label.bind(position=self.on_position_change)
@@ -31,6 +32,7 @@ class Manager(ScreenManager):
     menu = ObjectProperty(None)
     options = ObjectProperty(None)
     game = ObjectProperty(None)
+    results = ObjectProperty(None)
 
 
 class MainApp(App):

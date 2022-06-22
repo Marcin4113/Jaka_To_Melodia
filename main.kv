@@ -3,6 +3,7 @@
 #:include options.kv
 #:include prepare.kv
 #:include game.kv
+#:include results.kv
 
 <Manager>:
     id: screen_manager
@@ -12,6 +13,8 @@
     options: options
     prepare_game_no_of_players: prepare_game_no_of_players
     prepare_game_players_name: prepare_game_players_name
+    results: results
+    results_game: results_game
 
     Intro:
         id: intro
@@ -41,4 +44,14 @@
     Game:
         id: game
         name: "game"
+        manager: screen_manager
+
+    Results:
+        id: results
+        name: "results"
+        manager: screen_manager
+
+    ResultsGame:
+        id: results_game
+        name: "results_game"
         manager: screen_manager

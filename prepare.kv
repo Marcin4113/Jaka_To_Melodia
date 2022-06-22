@@ -1,38 +1,85 @@
 <PrepareGameNoOfPlayers>:
     BoxLayout:
         orientation: "vertical"
-        cols: 3
+        cols: 4
+        spacing: "30dp"
 
         Label:
-            text: "Podaj liczbę graczy"
-            font_size: 40
+            text: "Podaj liczbę graczy oraz gatunek muzyczny"
+            font_size: "40dp"
+
         TextInput:
             id: no_of_players
-            size_hint: 0.5, 1
+            size_hint: 0.5, 0.5
             pos_hint: {"center_x": 0.5}
             multiline: False
             on_text_validate: root.save_no_of_players(self)
             text_validate_unfocus: False
-        Button:
-            text: "Dalej"
-            on_release: root.save_no_of_players(self)
+            font_size: "40dp"
+
+        Spinner:
+            id: spinner_genres
+            size_hint: 0.5, 0.5
+            pos_hint: {"center_x": 0.5}
+            text: "Gatunek Muzyczny"
+            font_size: "30dp"
+
+        BoxLayout:
+            cols: 2
+            orientation: "horizontal"
+            spacing: "30dp"
+
+            Button:
+                size_hint: 0.5, 0.5
+                pos_hint: {"center_x": 0.5}
+                text: "<- Powrót"
+                font_size: "30dp"
+                on_release: root.go_back_menu(self)
+
+            Button:
+                size_hint: 0.5, 0.5
+                pos_hint: {"center_x": 0.5}
+                text: "Dalej ->"
+                font_size: "30dp"
+                on_release: root.save_no_of_players(self)
 
 <PrepareGamePlayersName>:
     BoxLayout:
         orientation: "vertical"
         cols: 3
+        spacing: "30dp"
 
         Label:
             text: "Podaj nazwę gracza numer " + str(root.current_player) + ":"
-            font_size: 40
+            size_hint: 0.5, 0.5
+            pos_hint: {"center_x": 0.5}
+            font_size: "40dp"
+
         TextInput:
             id: player_name
-            size_hint: 0.5, 1
+            size_hint: 0.5, 0.5
             pos_hint: {"center_x": 0.5}
             multiline: False
             on_text_validate: root.save_name(self)
             text_validate_unfocus: False
-        Button:
-            id: button_number_next
-            text: "Dalej"
-            on_release: root.save_name(self)
+            font_size: "40dp"
+
+        BoxLayout:
+            cols: 2
+            orientation: "horizontal"
+            spacing: "30dp"
+
+            Button:
+                size_hint: 0.5, 0.3
+                pos_hint: {"center_x": 0.5}
+                text: "<- Powrót"
+                font_size: "30dp"
+                on_release: root.manager.current = "prepare_game_no_of_players"
+
+            Button:
+                id: button_number_next
+                size_hint: 0.5, 0.3
+                pos_hint: {"center_x": 0.5}
+                text: "Dalej ->"
+                font_size: "30dp"
+                on_release: root.save_name(self)

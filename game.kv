@@ -5,7 +5,7 @@
 
         Label:
             id: label
-            size_hint: 1, 0.5
+            size_hint: 1, 0.7
             text: "Gracz "
             font_size: "50dp"
 
@@ -18,8 +18,14 @@
             max: 100
             value: root.playback_time
 
-        Label:
-            id: info
-            size_hint: 1, 0.5
-            text: "Naciśnij spację aby rozpocząć odsłuchiwanie fragmentu!"
-            font_size: "40dp"
+        BoxLayout:
+            id: box_game
+
+            Label:
+                id: info
+                spacing: 10
+                #hallign: "center"
+                #valign: "middle"
+                size_hint: 1, 0.7
+                text: "Naciśnij spację aby rozpocząć odsłuchiwanie fragmentu!"
+                font_size: "40dp"

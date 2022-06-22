@@ -34,12 +34,13 @@
                     text: str(root.volume_value) + "%"
 
             Button:
+                id: import_database_button
                 text: "Importuj bazę danych piosenek"
                 font_size: "40dp"
                 on_release: root.download_database(self)
         Button:
-            size_hint: 0.5, 0.5
+            size_hint: 0.5, 0.3
             pos_hint: {"center_x": 0.5}
             text: "Powrót"
-            font_size: "40dp"
+            font_size: "30dp"
             on_release: root.manager.current = "menu"
