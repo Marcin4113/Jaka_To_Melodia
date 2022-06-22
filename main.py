@@ -18,9 +18,9 @@ class Intro(Screen):
 
     # listener sprawdzający kiedy skończy się intro, który przechodzi potem do głównego menu
     def on_position_change(self, screen, value):
-        if value > self.label.duration - 1:  # czas: 20s
+        if value > self.label.duration - 20:  # czas: 20s
             self.label.state = 'stop'
-            self.manager.current = 'menu'
+            self.manager.current = 'game'
 
     def listener(self, *args):
         self.label.bind(position=self.on_position_change)
@@ -40,6 +40,6 @@ class MainApp(App):
 
 
 if __name__ == "__main__":
-    Window.fullscreen = 'auto'
-    Config.set('graphics', 'fullscreen', 'auto')  # pełny ekran
+    #Window.fullscreen = 'auto'
+    #Config.set('graphics', 'fullscreen', 'auto')  # pełny ekran
     MainApp().run()
