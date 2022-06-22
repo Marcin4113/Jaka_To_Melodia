@@ -74,9 +74,12 @@ class Database:
 
         self.db.commit()
 
-
-    def get_url(self, song_number):
+    def get_song_url(self, song_number):
         element = self.cursor.execute("SELECT music_url FROM tracks WHERE code=?", (song_number, ))
+        return element.fetchall()[0][0]
+
+    def get_cover_url(self, song_number):
+        element = self.cursor.execute("SELECT cover_url FROM tracks WHERE code=?", (song_number, ))
         return element.fetchall()[0][0]
 
     def get_artists(self, song_number):

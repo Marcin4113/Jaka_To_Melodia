@@ -34,7 +34,7 @@
                 pos_hint: {"center_x": 0.5}
                 text: "<- Powrót"
                 font_size: "30dp"
-                on_release: root.go_back_menu(self)
+                on_release: root.manager.current = "menu"
 
             Button:
                 size_hint: 0.5, 0.5

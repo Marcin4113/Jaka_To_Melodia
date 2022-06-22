@@ -1,8 +1,11 @@
 import random
 import difflib
+
+from kivy.animation import Animation
 from kivy.graphics.svg import Window
 from kivy.properties import NumericProperty
 from kivy.uix.button import Button
+from kivy.uix.image import Image, AsyncImage
 from kivy.uix.screenmanager import Screen
 import time
 import threading
@@ -33,12 +36,13 @@ class Game(Screen):
         self.player = None
         self.play_song_thread = None
         self.round_number = 1
-        self.answer_input = TextInput(multiline=False, size_hint=(0.5, 0.7), on_text_validate=self.check_answer)
-        self.answer_button = Button(text="Sprawdź!", size_hint=(0.5, 0.7), on_release=self.check_answer)
+        self.answer_input = TextInput(multiline=False, size_hint=(0.5, 0.7), on_text_validate=self.check_answer, font_size="40dp")
+        self.answer_button = Button(text="Sprawdź!", size_hint=(0.5, 0.7), on_release=self.check_answer, font_size="30dp")
 
     # przy uruchomieniu okna
     def on_enter(self, *args):
-        print(settings.master_volume)
+        #print(settings.master_volume)
+        self.ids.image_cover.source = "img/logo.jpg"
         # Window.fullscreen = 'auto'
         Window.bind(on_key_down=self.key_action)
         self.round_number = 1
@@ -73,6 +77,8 @@ class Game(Screen):
                 self.end_game()
 
     def check_answer(self, widget):
+        self.ids.image_cover.source = self.db.get_cover_url(self.song_number)
+
         self.ids.progress_bar.value = 0
         #print("text: " + self.answer_input.text)
 
@@ -125,6 +131,7 @@ class Game(Screen):
                 if self.player != None:
                     self.player.stop()
 
+                self.ids.image_cover.source = "img/logo.jpg"
                 self.song_playing = True
                 self.setup_screen()
 
@@ -141,7 +148,7 @@ class Game(Screen):
                 print(self.db.get_song_genres(self.song_number))
 
                 # print(self.db.get_artists(self.song_number) + " - " + self.db.get_song_name(self.song_number))
-                play_song_thread = threading.Thread(target=self.play_song, args=(self.db.get_url(self.song_number),))  # sprawdzić czy trzeba zapisywać wątek w klasie
+                play_song_thread = threading.Thread(target=self.play_song, args=(self.db.get_song_url(self.song_number),))  # sprawdzić czy trzeba zapisywać wątek w klasie
                 play_song_thread.start()
             else:
                 # koniec odtwarzania
@@ -218,6 +225,7 @@ class PrepareGameNoOfPlayers(Screen):
     def on_enter(self, *args):
         self.db = Database("database.db")
         self.ids.spinner_genres.values = self.db.get_all_genres()
+        self.ids.no_of_players.text = ""
 
     def save_no_of_players(self, widget):
         global no_of_players, song_genre_code
@@ -239,9 +247,14 @@ class PrepareGamePlayersName(Screen):
             self.ids.button_number_next.text = "Rozpocznij grę!"
             self.ids.button_number_next.bind(on_release=self.start_game)
             self.ids.player_name.bind(on_text_validate=self.start_game)
+        else:
+            if self.ids.button_number_next.text != "Dalej ->":
+                self.ids.button_number_next.text = "Dalej ->"
+                self.ids.button_number_next.bind(on_release=self.save_name)
+                self.ids.player_name.bind(on_text_validate=self.save_name)
 
     def save_name(self, widget):
-        # print("Player name: " + self.ids.player_name.text)
+        print("Player name: " + self.ids.player_name.text)
         players_info.append([self.ids.player_name.text, 0])  # przypisanie nazwy gracza do tablicy
         self.ids.player_name.text = ""
         self.current_player += 1

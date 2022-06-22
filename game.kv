@@ -1,5 +1,6 @@
 <Game>:
     BoxLayout:
+        id: test
         orientation: "vertical"
         cols: 4
 
@@ -9,12 +10,15 @@
             text: "Gracz "
             font_size: "50dp"
 
-        Image:
+        AsyncImage:
+            id: image_cover
+            size_hint: 1, 2
             source: "img/logo.jpg"
             allow_stretch: True
 
         ProgressBar:
             id: progress_bar
+            size_hint: 1, 0.3
             max: 100
             value: root.playback_time
 

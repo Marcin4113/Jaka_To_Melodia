@@ -6,13 +6,9 @@ import settings
 
 class Options(Screen):
     volume_value = NumericProperty(100)
-    intro_state = BooleanProperty(True)
 
     def __init__(self, **kwargs):
         super(Options, self).__init__(**kwargs)
-
-    def on_switch_active(self, widget):
-        self.intro_state = widget.active
 
     def on_slider_value_change(self, widget):
         settings.master_volume = int(widget.value)
